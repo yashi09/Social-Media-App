@@ -1,0 +1,31 @@
+package com.yashi.rest.messanger.resources;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+
+import com.yashi.rest.messanger.model.Comment;
+import com.yashi.rest.messanger.service.CommentService;
+
+@Path("/")
+public class CommentResource {
+	private CommentService commentService = new CommentService();
+	/*@GET
+	public String test(){
+		return "test12";
+	}
+	
+	@GET
+	@Path("/{commentId}")
+	public String test2(@PathParam("commentId") long commentId,@PathParam("messageId") long messageId){
+		return "comment id  = "+commentId + " message id = "+messageId;
+	}*/
+	
+	@GET
+	public List<Comment> getAllComments(long messageId){
+		return new ArrayList<Comment>(commentService.getAllComments(messageId).values());
+	}
+}

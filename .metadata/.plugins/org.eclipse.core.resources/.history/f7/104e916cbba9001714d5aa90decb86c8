@@ -1,0 +1,59 @@
+package com.yashi.rest.messanger.resources;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import com.yashi.rest.messanger.model.Comment;
+import com.yashi.rest.messanger.service.CommentService;
+
+@Path("/")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class CommentResource {
+	private CommentService commentService = new CommentService();
+	/*@GET
+	public String test(){
+		return "test12";
+	}
+	
+	@GET
+	@Path("/{commentId}")
+	public String test2(@PathParam("commentId") long commentId,@PathParam("messageId") long messageId){
+		return "comment id  = "+commentId + " message id = "+messageId;
+	}*/
+	
+	@GET
+	public List<Comment> getAllComments(long messageId){
+		return new ArrayList<Comment>(commentService.getAllComments(messageId).values());
+	}
+	
+	@GET
+	public Comment getComment(long messageId, long commentId){
+		return commentService.getComment(messageId, commentId);
+	}
+	
+	@PUT
+	public Comment addComment(long messageId,Comment comment){
+		return commentService.addComment(messageId, comment);
+	}
+	
+	@POST
+	public Comment updateComment(long messageId,Comment comment){
+		return commentService.updateComment(messageId, comment);
+	}
+	
+	@DELETE
+	public Comment deleteComment(long messageId, long commentId){
+		return commentService.deleteComment(messageId, commentId);
+	}
+}
